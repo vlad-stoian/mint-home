@@ -1,0 +1,3 @@
+
+[workspace/lastpass-cli]
+checkout = git clone 'https://github.com/lastpass/lastpass-cli.git' 'lastpass-cli'
