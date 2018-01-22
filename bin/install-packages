@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+xargs -a "$HOME"/.config/packages.list sudo apt-get install

@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+set -e
+
+function main() {
+  install_packages
+  install_bash_it
+  install_space_vim
+}
+
+function install_packages() {
+  "$HOME"/bin/install-packages
+}
+
+function install_bash_it() {
+  if [[ -d "$HOME"/.bash_it ]];
+  then
+    echo "bash-it already installed; skipping"
+    return
+  fi
+
+  git clone --depth=1 https://github.com/Bash-it/bash-it.git "$HOME"/.bash_it
+  "$HOME"/.bash_it/install.sh
+}
+
+function install_space_vim() {
+  bash <(curl -fsSL https://git.io/vFUhE)
+}
+
+
+main
