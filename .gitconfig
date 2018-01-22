@@ -1,0 +1,5 @@
+[user]
+	name = Vlad Stoian
+	email = vstoian@gmail.com
+[push]
+	default = current
