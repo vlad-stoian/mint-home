@@ -6,6 +6,7 @@ function main() {
   install_packages
   install_bash_it
   install_space_vim
+  install_lastpass_cli
 }
 
 function install_packages() {
@@ -27,5 +28,12 @@ function install_space_vim() {
   bash <(curl -fsSL https://git.io/vFUhE)
 }
 
+function install_lastpass_cli() {
+  # git clone --depth=1 https://github.com/lastpass/lastpass-cli.git "$HOME"/workspace/lastpass-cli
+  pushd "$HOME"/workspace/lastpass-cli
+    make
+    sudo make install
+  popd
+}
 
 main

@@ -1,3 +1,8 @@
+build-essential
 git
 vim
 mr
+cmake
+libxml2-dev
+libssl-dev
+libcurl4-openssl-dev
