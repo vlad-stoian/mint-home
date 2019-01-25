@@ -10,7 +10,9 @@ set -e
 #    ones of the person who happens to be logged into lastpass
 
 if lpass status | grep "Logged in as" ; then
-    bash <(lpass show 'Personal/load-github-ssh-key' --notes) "$1"
+  bash <(lpass show 'Personal/load-github-ssh-key' --notes) "$1"
+else
+  echo "Not logged in"
 fi
 
 
