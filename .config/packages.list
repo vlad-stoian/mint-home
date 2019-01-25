@@ -6,3 +6,6 @@ cmake
 libxml2-dev
 libssl-dev
 libcurl4-openssl-dev
+golang-1.9
+clementine
+virtualbox

@@ -178,3 +178,16 @@ export SCM_CHECK=true
 source "$BASH_IT"/bash_it.sh
 
 export EDITOR=vim
+
+
+export GOPATH="$HOME/workspace/go"
+export PATH="$PATH:/usr/lib/go-1.9/bin:$GOPATH/bin"
+source <(kubectl completion bash)
+
+
+export PATH="$PATH:/snap/bin"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+source ~/.rvm/scripts/rvm
