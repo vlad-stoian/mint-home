@@ -2,20 +2,24 @@
 
 set -e
 
-function main() {
-  install_packages
-  install_bash_it
-  install_space_vim
-  install_lastpass_cli
-  install_kubectl
-  install_minikube
+function print_step() {
+  red=`tput setaf 1`
+  reset=`tput sgr0`
+  echo "${red}---------- ${FUNCNAME[1]}${reset}"
+}
+
+function change_caps_lock_to_ctrl() {
+  print_step
+  setxkbmap -option ctrl:nocaps
 }
 
 function install_packages() {
+  print_step
   "$HOME"/bin/install-packages
 }
 
 function install_bash_it() {
+  print_step
   if [[ -d "$HOME"/.bash_it ]];
   then
     echo "bash-it already installed; skipping"
@@ -27,27 +31,63 @@ function install_bash_it() {
 }
 
 function install_space_vim() {
-  bash <(curl -fsSL https://git.io/vFUhE)
+  print_step
+  curl -sLf https://spacevim.org/install.sh | bash
 }
 
 function install_lastpass_cli() {
-  # git clone --depth=1 https://github.com/lastpass/lastpass-cli.git "$HOME"/workspace/lastpass-cli
+  print_step
+  if [[ ! -d "$HOME"/workspace/lastpass-cli ]];
+  then
+    echo "Lastpass repo not cloned; cloning"
+    git clone --depth=1 https://github.com/lastpass/lastpass-cli.git "$HOME"/workspace/lastpass-cli
+  fi
+
   pushd "$HOME"/workspace/lastpass-cli
+    git pull
     make
     sudo make install
   popd
 }
 
 function install_kubectl() {
+  print_step
   curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
   chmod +x ./kubectl
   sudo mv ./kubectl /usr/local/bin/
 }
 
 function install_minikube() {
+  print_step
   curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.25.0/minikube-linux-amd64
   chmod +x ./minikube
   sudo mv ./minikube /usr/local/bin/
+}
+
+function install_diff_so_fancy() {
+  print_step
+  if [[ ! -d "$HOME"/workspace/lastpass-cli ]];
+  then
+    echo "diff-so-fancy repo not cloned; cloning"
+    git clone --depth=1 https://github.com/so-fancy/diff-so-fancy.git "$HOME"/workspace/diff-so-fancy
+  fi
+
+  pushd "$HOME"/workspace/diff-so-fancy
+    git pull
+  popd
+
+  ln -sf "$HOME"/workspace/diff-so-fancy/diff-so-fancy "$HOME"/bin/diff-so-fancy
+}
+
+function main() {
+  change_caps_lock_to_ctrl
+  install_packages
+  install_bash_it
+  install_space_vim
+  install_lastpass_cli
+  install_kubectl
+  install_minikube
+  install_diff_so_fancy
 }
 
 main
